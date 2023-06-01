@@ -1,0 +1,48 @@
+import pandas as pd
+import numpy as np
+air_quality=pd.read_csv(r"C:\Users\91932\Downloads\AirQuality.csv")
+heart_diseases=pd.read_csv(r"C:\Users\91932\Downloads\heart.csv")
+air_quality
+heart_diseases
+
+1.drop
+heart_diseases.drop_duplicates(inplace=True)
+heart_diseases
+
+2.missing values
+heart_diseases.isnull()
+heart_diseases.isnull().sum()
+
+
+air_quality.duplicated()
+
+5.data transformation
+heart_diseases['age'].plot()
+
+
+heart_diseases = heart_diseases[['age', 'sex']]
+heart_diseases.head()
+
+3.data integration
+merging=pd.concat([air_quality,heart_diseases])
+merging
+
+4.data model building
+from sklearn.model_selection import train_test_split
+X = heart_diseases.drop('age', axis=1)
+y = heart_diseases['age']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+y
+
+
+from sklearn.ensemble import RandomForestClassifier
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+
+from sklearn.metrics import accuracy_score
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+
